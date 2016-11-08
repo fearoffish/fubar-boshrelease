@@ -10,15 +10,14 @@ jobs:
   - name: proxy
     templates:
     - name: nginx
-    instances: 2
-    persitent_disk: 0
+    instances: 1
+    persistent_disk: 0
     resource_pool: small_z1
     networks: (( param "Please configure the networks for this job" ))
 
   - name: fubar
     templates:
     - name: fubar
-      release: fubar
     instances: 2
     persistent_disk: 0
     resource_pool: small_z1
@@ -28,8 +27,8 @@ networks: (( param "Please configure the global network definitions for this Dep
 
 properties:
   fubar:
-    port: 8080
+    port: 8081
   nginx:
-    port: 1234
-    backend_servers: (( grab jobs.proxy.networks.fubar1.static_ips ))
+    port: 80
+    backend_servers: (( grab jobs.fubar.networks.fubar2.static_ips ))
     backend_port: (( grab properties.fubar.port ))

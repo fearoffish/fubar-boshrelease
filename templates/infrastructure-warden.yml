@@ -16,10 +16,11 @@ jobs:
   - name: proxy
     networks:
       - name: fubar1
-        static_ips: (( static_ips(0, 1) ))
+        static_ips: (( static_ips(0) ))
   - name: fubar
     networks:
-      - name: fubar1
+      - name: fubar2
+        static_ips: (( static_ips(1, 2) ))
 
 compilation:
   cloud_properties:
@@ -38,4 +39,12 @@ networks:
     name: fubar1
     gateway: 10.244.54.1
     static:
-      - 10.244.54.2 - 10.244.54.5
+      - 10.244.54.2 - 10.244.54.9
+- name: fubar2
+  type: manual
+  subnets:
+  - range: 10.244.54.0/24
+    name: fubar1
+    gateway: 10.244.54.1
+    static:
+      - 10.244.54.10 - 10.244.54.15

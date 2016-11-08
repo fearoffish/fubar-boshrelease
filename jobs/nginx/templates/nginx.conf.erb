@@ -37,8 +37,8 @@ http {
   gzip_disable       "MSIE [1-6]\.(?!.*SV1)";
 
   upstream fubar {
-<% p("nginx.backend_server").each do |server| %>
-  server <%= server %>:80<%# p("nginx.backend_port") %>;
+<% p("nginx.backend_servers").each do |server| %>
+  server <%= server %>:<%= p("nginx.backend_port") %>;
 <% end %>
   }
 
